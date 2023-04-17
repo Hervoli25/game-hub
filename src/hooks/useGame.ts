@@ -1,6 +1,5 @@
-import { CanceledError } from 'axios';
-import { useEffect, useState } from 'react';
-import apiClient from '../services/api-client';
+
+import useData from './useData';
 
 export interface Platform {
   id: number;
@@ -16,42 +15,7 @@ export interface Game {
   metacritic: number;
 }
 
-interface FetchGamesResponse {
-  count: number;
-  results: Game[];
-}
 
-const useGame = () => {
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState<string>('');
-  const [isLoading, setLoading] = useState(false); // Set isLoading to true by default
 
-  useEffect(() => {
-    const controller = new AbortController();
-setLoading(true); // Set isLoading to true when the request is made
-    apiClient
-      .get<FetchGamesResponse>('/games', { signal: controller.signal })
-      .then((res) => {
-        console.log(res.data); // log the response data
-        setGames(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err); // log any errors
-        if (err.name === 'AxiosError' && err.response) {
-          setError(`Error ${err.response.status}: ${err.response.statusText}`);
-        } else if (err.name === 'AbortError') {
-          setError('Request was canceled'); //This is the error that is thrown when the request is aborted
-        } else {
-          setError('');
-        }
-        setLoading(false);
-      });
-
-    return () => controller.abort();
-  }, []);
-
-  return { games, error, isLoading };
-};
-
+const useGame = () => useData<Game>('/games');
 export default useGame;
