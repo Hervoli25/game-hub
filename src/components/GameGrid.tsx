@@ -4,9 +4,21 @@ import useGame from '../hooks/useGame';
 import GameCard from './GameCard';
 import GameCardSkeleton from './GameCardSkeleton';
 import GameCardContainer from './GameCardContainer';
+import { Genre } from '../hooks/useGenres';
 
-const GameGrid = () => {
-  const { data, error, isLoading } = useGame();
+interface Props {
+  selectedGenre: Genre | null;
+}
+
+const GameGrid = ({ selectedGenre }: Props) => {
+  const { data, error, isLoading } = useGame(selectedGenre);
+
+  let filteredData = data;
+  if (selectedGenre !== null) {
+    filteredData = data.filter((game) =>
+      game.genres.find((genre: { id: number }) => genre.id === selectedGenre.id)
+    );
+  }
 
   return (
     <>
@@ -17,12 +29,12 @@ const GameGrid = () => {
         spacing={2}
       >
         {isLoading
-          ? Array.from({ length: 10 }).map((_, index) => (
-              <GameCardContainer key={index}>
+          ? Array.from({ length: 10 }).map((_, skeleton) => (
+              <GameCardContainer key={skeleton}>
                 <GameCardSkeleton />
               </GameCardContainer>
             ))
-          : data.map((game) => (
+          : filteredData.map((game) => (
               <GameCardContainer key={game.id}>
                 <GameCard game={game} />
               </GameCardContainer>
