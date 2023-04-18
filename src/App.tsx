@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import GameGrid from './components/GameGrid';
 import GenreList from './components/GenreList';
 import { Genre } from './hooks/useGenres';
+import Footer from './components/Footer'; // import the Footer component
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
@@ -23,11 +24,17 @@ function App() {
       </GridItem>
       <Show above='lg'>
         <GridItem area='aside' padding={5}>
-          <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)} />
+          <GenreList
+            selectedGenre={selectedGenre}
+            onSelectGenre={(genre) => setSelectedGenre(genre)}
+          />
         </GridItem>
       </Show>
       <GridItem area='main'>
         <GameGrid selectedGenre={selectedGenre} />
+      </GridItem>
+      <GridItem>
+        <Footer />
       </GridItem>
     </Grid>
   );
