@@ -1,4 +1,3 @@
-
 import useData from './useData';
 import { Genre } from './useGenres';
 
@@ -9,6 +8,8 @@ export interface Platform {
 }
 
 export interface Game {
+  [x: string]: any;
+  platform: Platform;
   genres: any;
   id: number;
   name: string;
@@ -17,9 +18,21 @@ export interface Game {
   metacritic: number;
 }
 
+export interface GameQuery {
+  platform: Platform | null;
+  genre: Genre | null;
+}
 
+export const useGame = (gameQuery: GameQuery) => {
+  const params: Record<string, string> = {};
 
-const useGame = (selectedGenre: Genre | null) => {
-  return useData<Game>('/games', { params: { genres: selectedGenre?.id }},[selectedGenre?.id]);
+  if (gameQuery?.genre?.id) {
+    params.genres = gameQuery.genre.id.toString();
+  }
+  if (gameQuery?.platform?.id) {
+    params.platforms = gameQuery.platform.id.toString();
+  }
+
+  return useData<Game>('/games', { params }, [gameQuery.genre?.id, gameQuery.platform?.id]);
 };
 export default useGame;
