@@ -19,6 +19,7 @@ export interface Game {
 }
 
 export interface GameQuery {
+  sortOrder: any;
   platform: Platform | null;
   genre: Genre | null;
 }
@@ -33,6 +34,10 @@ export const useGame = (gameQuery: GameQuery) => {
     params.platforms = gameQuery.platform.id.toString();
   }
 
-  return useData<Game>('/games', { params }, [gameQuery.genre?.id, gameQuery.platform?.id]);
+   if (gameQuery?.sortOrder) {
+    params.ordering = gameQuery.sortOrder;
+  }
+
+  return useData<Game>('/games', { params }, [gameQuery.genre?.id, gameQuery.platform?.id, gameQuery.sortOrder]);
 };
 export default useGame;
