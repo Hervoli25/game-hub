@@ -2,6 +2,7 @@ import { Box, Flex, Grid, GridItem, HStack, Show } from '@chakra-ui/react';
 import { useState } from 'react';
 import Footer from './components/Footer';
 import GameGrid from './components/GameGrid';
+import GameHeading from './components/GameHeading';
 import GenreList from './components/GenreList';
 import NavBar from './components/NavBar';
 import PlatformSelector from './components/PlatformSelector';
@@ -48,6 +49,7 @@ function App() {
 				</GridItem>
 			</Show>
 			<GridItem area='main'>
+				<GameHeading gameQuery={gameQuery} />
 				<Flex paddingLeft={12}>
 					<Box marginRight={5}>
 						<PlatformSelector
