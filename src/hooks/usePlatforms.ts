@@ -8,8 +8,12 @@ export interface Platform {
 
 const usePlatforms = () => {
   const { data, error } = useData<Platform[]>("/platforms/lists/parents");
-  console.log("usePlatforms data:", data);
-  console.log("usePlatforms error:", error);
+
+  if (error || !data) {
+    console.error('Error loading platforms:', error);
+    return { data: [], error };
+  }
+
   return { data, error };
 };
 
