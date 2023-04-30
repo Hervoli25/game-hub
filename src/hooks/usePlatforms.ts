@@ -1,20 +1,11 @@
-import useData from "./useData";
+import platforms from "../data/platforms";
 
-export interface Platform {
+interface Platform {
   id: number;
   name: string;
   slug: string;
 }
 
-const usePlatforms = () => {
-  const { data, error } = useData<Platform[]>("/platforms/lists/parents");
-
-  if (error || !data) {
-    console.error('Error loading platforms:', error);
-    return { data: [], error };
-  }
-
-  return { data, error };
-};
+const usePlatforms = () => ({ data: platforms, isLoading: false, error: null });
 
 export default usePlatforms;

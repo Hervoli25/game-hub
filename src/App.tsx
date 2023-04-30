@@ -10,6 +10,7 @@ import SortSelector from './components/SortSelector';
 import { Platform } from './hooks/useGame';
 import { Genre } from './hooks/useGenres';
 import usePlatforms from './hooks/usePlatforms';
+//import { Platform } from './hooks/usePlatforms';
 
 export interface GameQuery {
 	platform: Platform | null;
