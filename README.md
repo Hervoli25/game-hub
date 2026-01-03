@@ -2,6 +2,8 @@
 
 A modern, responsive game discovery platform built with React and TypeScript. Browse, search, and filter thousands of games using the RAWG Video Games Database API.
 
+🚀 **[Live Demo](https://game-hub-hervoli25.vercel.app/)**
+
 ## Features
 
 - 🎮 **Browse Games** - Discover games from a vast database
@@ -103,4 +105,8 @@ This project is open source and available under the MIT License.
 
 - Game data provided by [RAWG.io](https://rawg.io/)
 - UI components from [Chakra UI](https://chakra-ui.com/)
+
+---
+
+**Developed by Hervé Kajingu (Tshombe)**
 
